@@ -11,19 +11,17 @@ column_layout = [[
 ]]
 
 layout = [
-    [sg.Text("Generate class given members")],
     [sg.Multiline(size=(100, 10), key="output")],
     [sg.Text("Class Name"), sg.InputText("my_class", key="class")],
     [sg.Text("Spaces per tab"), sg.InputText("2", key="spaces")],
-    [sg.Checkbox("Name", key="bname", default=True),
-     sg.Checkbox("Init", key="binit", default=True),
+    [sg.Checkbox("Constructor", key="binit", default=True),
      sg.Checkbox("to_string", key="bto_string", default=True),
      sg.Checkbox("Printable", key="bprintable", default=True),
-     sg.Checkbox("eq", key="beq", default=True),
-     sg.Checkbox("Order", key="border", default=True),
+     sg.Checkbox("Equals Operators", key="beq", default=True),
+     sg.Checkbox("Comparison Operators", key="border", default=True),
      sg.Checkbox("Getters and Setters", key="bgetter_and_setter", default=True)],
     [sg.Column(column_layout, key="column")],
-    [sg.Button("Generate Text", key="gen"), sg.Exit()]
+    [sg.Button("Generate Class", key="gen"), sg.Exit()]
 ]
 
 current_count = 0

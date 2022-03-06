@@ -7,7 +7,7 @@ class Member:
         return f"{self.datatype} {self.name}"
 
     def get_init(self) -> str:
-        return f"{self.datatype} _{self.name}"
+        return f"const {self.datatype} &_{self.name}"
 
 
 class Text:
@@ -74,6 +74,9 @@ class ClassText:
             self._data.add("public: ", indent=1)
             self._data.add(*[f"{str(member)};" for member in self._members], indent=1)
 
+        if self._init:
+            self._add_init()
+
         if self._eq:
             self._add_eq()
 
@@ -109,7 +112,7 @@ class ClassText:
             f"{self._name}(",
             ", ".join(member.get_init() for member in self._members),
             ") : ",
-            ", ".join(f"{member.name}(_{member.name}" for member in self._members),
+            ", ".join(f"{member.name}(_{member.name})" for member in self._members),
         )
 
         self._add_function(statement=statement, indent=1)
@@ -146,7 +149,7 @@ class ClassText:
             self._add_function(f"void set_{member.name}(const {member.datatype} &x)", f"{member.name} = x;", indent=1)
 
     def _add_to_string(self) -> None:
-        body = join("return ", " + ".join(f"to_string({member.name})" for member in self._members), ";")
+        body = join("return ", " + \" \" + ".join(f"to_string({member.name})" for member in self._members), ";")
         self._add_function(f"std::string to_string(const {self._name} &x)", body, indent=0)
 
     def _add_printable(self) -> None:
