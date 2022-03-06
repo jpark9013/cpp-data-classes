@@ -150,5 +150,5 @@ class ClassText:
         self._add_function(f"std::string to_string(const {self._name} &x)", body, indent=0)
 
     def _add_printable(self) -> None:
-        body = join("return ", "out << ", " << ".join(member.name for member in self._members), ";")
+        body = join("return ", "out << ' ' << ", " << ' ' << ".join(member.name for member in self._members), ";")
         self._add_function(f"template<typename U>\nU& operator << (U& out, const {self._name} &x)", body, indent=0)
