@@ -11,8 +11,9 @@ class Member:
 
 
 class Text:
-    def __init__(self):
+    def __init__(self, spaces: int) -> None:
         self._data = []
+        self._spaces = spaces
 
     def add(self, *lines, **kwargs) -> None:
         try:
@@ -21,7 +22,7 @@ class Text:
             raise Exception("Expected indent argument")
 
         buffer = kwargs.get("buffer", False)
-        block = "\n".join(" " * indent + line for line in lines)
+        block = "\n".join(" " * (self._spaces * indent) + line for line in lines)
 
         if buffer:
             if len(self._data) == 0:
@@ -63,7 +64,7 @@ class ClassText:
         self._getter_and_setter = getter_and_setter
         self._members = members
 
-        self._data = Text()
+        self._data = Text(self._spaces)
         self._data.add(f"class {self._name} {{", indent=0)
 
         if self._getter_and_setter:
