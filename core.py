@@ -143,7 +143,7 @@ class ClassText:
     def _add_getter_and_setter(self) -> None:
         for member in self._members:
             self._add_function(f"{member.datatype} get_{member.name}()", f"return {member.name};", indent=1)
-            self._add_function(f"void set_{member.name}({member.datatype} x)", f"{member.name} = x;", indent=1)
+            self._add_function(f"void set_{member.name}(const {member.datatype} &x)", f"{member.name} = x;", indent=1)
 
     def _add_to_string(self) -> None:
         body = join("return ", " + ".join(f"to_string({member.name})" for member in self._members), ";")
