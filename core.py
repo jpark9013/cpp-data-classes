@@ -136,9 +136,9 @@ class ClassText:
             self._add_eq()
 
         self._add_return_op("<", 1)
-        self._add_return_op("<=", 1, "return a == b || a < b;")
+        self._add_return_op("<=", 1, "return !(a > b);")
         self._add_return_op(">", 1)
-        self._add_return_op(">=", 1, "return a == b || a > b;")
+        self._add_return_op(">=", 1, "return !(a < b);")
 
     def _add_getter_and_setter(self) -> None:
         for member in self._members:
